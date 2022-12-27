@@ -63,7 +63,7 @@ class Server:
             if i in index_dataset:
                 data.append(index_dataset[i])
             i += 1
- 
+
         return {
             "index": index,
             "data": data,
