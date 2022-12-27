@@ -48,33 +48,25 @@ class Server:
             Return:
                 Hyper index
         """
-        result_dataset = []
-        index_data = self.indexed_dataset()
-        keys_list = list(index_data.keys())
-        assert index + page_size < len(keys_list)
-        assert index < len(keys_list)
+        index_dataset = self.indexed_dataset()
 
-        if index not in index_data:
-            start_index = keys_list[index]
+        if index is not None:
+            assert 0 <= index < len(index_dataset)
         else:
-            start_index = index
+            index = 0
 
-        for i in range(start_index, start_index + page_size):
-            if i not in index_data:
-                result_dataset.append(index_data[keys_list[i]])
-            else:
-                result_dataset.append(index_data[i])
+        next_index = index + page_size
+        data = []
+        i = index
 
-        next_index: int = index + page_size
-
-        if index in keys_list:
-            next_index
-        else:
-            next_index = keys_list[next_index]
-
+        while len(data) < page_size:
+            if i in index_dataset:
+                data.append(index_dataset[i])
+            i += 1
+ 
         return {
-            'index': index,
-            'next_index': next_index,
-            'page_size': len(result_dataset),
-            'data': result_dataset
+            "index": index,
+            "data": data,
+            "page_size": page_size,
+            "next_index": i,
         }
