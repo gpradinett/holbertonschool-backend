@@ -5,7 +5,7 @@ Deletion-resilient hypermedia pagination
 
 import csv
 import math
-from typing import List
+from typing import List, Dict
 
 
 class Server:
@@ -41,17 +41,14 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
-            Get the hyper index
-            Args:
-                index: Current page
-                page_size: Total size of the page
-            Return:
-                Hyper index
+        The goal here is that if between two queries, certain rows are
+        removed from the dataset, the user does not miss items from dataset
+        when changing page
         """
-        index_dataset = self.indexed_dataset()
+        indexed_dataset = self.indexed_dataset()
 
         if index is not None:
-            assert 0 <= index < len(index_dataset)
+            assert 0 <= index < len(indexed_dataset)
         else:
             index = 0
 
@@ -60,8 +57,8 @@ class Server:
         i = index
 
         while len(data) < page_size:
-            if i in index_dataset:
-                data.append(index_dataset[i])
+            if i in indexed_dataset:
+                data.append(indexed_dataset[i])
             i += 1
 
         return {
