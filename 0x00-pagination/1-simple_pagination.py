@@ -33,10 +33,11 @@ class Server:
         assert type(page) == int and page > 0
         assert type(page_size) == int and page_size > 0
 
-        range: Tuple = index_range(page, page_size)
-        pagination: List = self.dataset()
+        res = index_range(page, page_size)
+        start = int(res[0])
+        end = int(res[1])
 
-        return (pagination[range[0]:range[1]])
+        return (self.dataset()[start:end])
 
 
 def index_range(page: int, page_size: int) -> tuple:
