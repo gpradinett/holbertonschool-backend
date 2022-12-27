@@ -37,7 +37,7 @@ class Server:
         start = int(res[0])
         end = int(res[1])
 
-        return (self.dataset()[start:end])
+        return (self.dataset()[start: end])
 
 
 def index_range(page: int, page_size: int) -> tuple:
