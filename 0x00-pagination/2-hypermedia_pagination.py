@@ -59,14 +59,26 @@ class Server:
         """
 
         """
-        record_dataset = self.get_page(page, page_size)
-        page_dict = math.ceil(len(self.__dataset) / page_size)
+        result = self.get_page(page, page_size)
+        total_page = math.ceil(len(self.get_page(page_size=19419)) / page_size)
+        page_size = len(result)
+        page = page
+        data = result
 
+        if page < total_page:
+            next_page = page + 1
+        else:
+            next_page = None
+
+        if page > 1:
+            prev_page = page - 1
+        else:
+            prev_page = None
         return {
-            'page_size': len(record_dataset),
+            'page_size': page_size,
             'page': page,
-            'data': record_dataset,
-            'next_page': page + 1 if (page + 1) <= page_dict else Nose,
-            'prev_page': page - 1 if (page - 1) > 0 else None,
-            'total_pages': page_dict
+            'data': data,
+            'next_page': next_page,
+            'prev_page': prev_page,
+            'total_pages': total_page
         }
