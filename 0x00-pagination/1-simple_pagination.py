@@ -30,13 +30,13 @@ class Server:
         """
         Return list of baby names or assert error
         """
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page_size > 0
+        assert type(page) == int and page > 0
+        assert type(page_size) == int and page_size > 0
 
-        pagination_indexes = index_range(page=page, page_size=page_size)
-        self.dataset()
+        range: Tuple = index_range(page, page_size)
+        pagination: List = self.dataset()
 
-        return (self.__dataset[pagination_indexes[0]:pagination_indexes[1]])
+        return (pagination[range[0]:range[1]])
 
 
 def index_range(page: int, page_size: int) -> tuple:
