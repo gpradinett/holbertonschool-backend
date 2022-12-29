@@ -26,7 +26,7 @@ class BasicCache(BaseCaching):
         Args: key: of the dict
         item: value of the key
         """
-        if key or item is not None:
+        if key is not None and item is not None:
             self.cache_data[key] = item
 
     def get(self, key):
