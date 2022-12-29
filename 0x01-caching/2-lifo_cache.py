@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-
+class LIFOCache that inherits from BaseCaching and is a caching system
 """
 
 
@@ -20,7 +20,9 @@ class LIFOCache(BaseCaching):
 
     def put(self, key, item):
         """
-
+        modify cache data
+        Args: key: of the dict
+        item: value of the key
         """
         if key is not None and item is not None:
             self.cache_data[key] = item
@@ -33,7 +35,9 @@ class LIFOCache(BaseCaching):
 
     def get(self, key):
         """
-
+        modify cache data
+        Args: key: of the dict
+        Return: value of the key
         """
         if key is None or key not in self.cache_data:
             return None
