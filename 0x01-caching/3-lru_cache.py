@@ -4,6 +4,7 @@ Create a class LRUCache that inherits from
 BaseCaching and is a caching system
 """
 from base_caching import BaseCaching
+from collections import deque
 
 
 class LRUCache(BaseCaching):
@@ -16,7 +17,8 @@ class LRUCache(BaseCaching):
         method initialized
         """
         super().__init__()
-        self.leastrecent = []
+        self.queued_item = deque()
+        self.lru_item = []
 
     def put(self, key, item):
         """
@@ -24,25 +26,17 @@ class LRUCache(BaseCaching):
         Args: key: of the dict
              item: value of the key
         """
-        if key or item is not None:
-            valuecache = self.get(key)
-            # Make a new
-            if valuecache is None:
+        if key is not None and item is not None:
+            if key in self.cache_data:
+                self.cache_data[key] = item
+                self.lru_item.remove(key)
+            else:
                 if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                    keydel = self.leastrecent
-                    lendel = len(keydel) - 1
-                    del self.cache_data[keydel[lendel]]
-                    print("DISCARD: {}".format(self.leastrecent.pop()))
-            else:
-                del self.cache_data[key]
-
-            if key in self.leastrecent:
-                self.leastrecent.remove(key)
-                self.leastrecent.insert(0, key)
-            else:
-                self.leastrecent.insert(0, key)
-
-            self.cache_data[key] = item
+                    del self.cache_data[self.lru_item[0]]
+                    print("DISCARD:", self.lru_item[0])
+                    self.lru_item.pop(0)
+                self.cache_data[key] = item
+            self.lru_item.append(key)
 
     def get(self, key):
         """
@@ -50,10 +44,9 @@ class LRUCache(BaseCaching):
         Args: key: of the dict
         Return: value of the key
         """
-        valuecache = self.cache_data.get(key)
-
-        if valuecache:
-            self.leastrecent.remove(key)
-            self.leastrecent.insert(0, key)
-
-        return valuecache
+        if key in self.cache_data:
+            self.lru_item.remove(key)
+            self.lru_item.append(key)
+            return self.cache_data.get(key)
+        else:
+            return None
