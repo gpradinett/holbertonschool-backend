@@ -25,7 +25,7 @@ class FIFOCache(BaseCaching):
         if key is not None and item is not None:
             self.cache_data[key] = item
 
-        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             keydel = list(self.cache_data.keys())[0]
             del self.cache_data[keydel]
             print("DISCARD: {}".format(keydel))
