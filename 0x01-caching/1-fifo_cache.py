@@ -37,5 +37,8 @@ class FIFOCache(BaseCaching):
         Args: key: of the dict
         Return: value of the key
         """
+        if key is None or key not in self.cache_data:
+            return None
+
         valuecache = self.cache_data.get(key)
         return valuecache
