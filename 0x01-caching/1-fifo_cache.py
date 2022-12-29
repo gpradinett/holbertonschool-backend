@@ -22,14 +22,13 @@ class FIFOCache(BaseCaching):
         Args: key: of the dict
         item: value of the key
         """
-        if key or item is not None:
-            valuecache = self.get(key)
-            if valuecache is None:
-                if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                    keydel = list(self.cache_data.keys())[0]
-                    del self.cache_data[keydel]
-                    print("DISCARD: {}".format(keydel))
+        if key is not None and item is not None:
             self.cache_data[key] = item
+
+        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+            keydel = list(self.cache_data.keys())[0]
+            del self.cache_data[keydel]
+            print("DISCARD: {}".format(keydel))
 
     def get(self, key):
         """
