@@ -16,7 +16,7 @@ class Config(object):
     class config language to 'en', 'fr'
     """
     LANGUAGES = ['en', 'fr']
-    BABEL_DEFAULT_LOCATE = 'en'
+    BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
