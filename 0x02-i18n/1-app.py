@@ -23,12 +23,12 @@ class Config():
 app.config.from_object(Config)
 
 
-@app.route('/', strict_slashes=False)
+@app.route("/", strict_slashes=False)
 def index() -> Any:
     """
     return template of 1-index.html
     """
-    return render_template('1-index.html')
+    return render_template("1-index.html")
 
 
 if __name__ == '__main__':
