@@ -11,22 +11,25 @@ app = Flask(__name__)
 babel = Babel(app)
 
 
-class Config():
+class Config(object):
     """
-    class config language to 'en', 'fr'
+    Config class that has a LANGUAGES class attribute
+    equal to ["en", "fr"]
     """
-    LANGUAGES = ['en', 'fr']
+    LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-app.config.from_object(Config)
+app.config.from_object("3-app.Config")
 
 
 @app.route("/", strict_slashes=False)
-def index() -> Any:
+def hello_world() -> Any:
     """
-    return template of 3-index.html
+    return index.html template that simply outputs
+    “Welcome to Holberton” as page title (<title>) and
+    “Hello world” as header (<h1>)
     """
     return render_template("3-index.html")
 
@@ -34,10 +37,10 @@ def index() -> Any:
 @babel.localeselector
 def get_locale() -> Any:
     """
-    determine the best match with our supported languages.
+    determine the best match with our supported languages
     """
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return request.accept_languages.best_match(app.config["LANGUAGES"])
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
