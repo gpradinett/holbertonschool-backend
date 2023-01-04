@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-from typing import Any
-from flask_babel import Babel
-from flask import Flask, render_template
 """
 Basic Babel setup
 """
+from typing import Any
+from flask_babel import Babel
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
