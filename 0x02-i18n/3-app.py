@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-Basic Babel setup
+Create a get_locale function with the babel.localeselector
+decorator. Use request.accept_languages to determine the best match
+with our supported languages
 """
+from flask import Flask, render_template, request
 from typing import Any
 from flask_babel import Babel
-from flask import Flask, render_template
-
 
 app = Flask(__name__)
 babel = Babel(app)
