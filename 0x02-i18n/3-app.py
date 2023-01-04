@@ -26,9 +26,9 @@ app.config.from_object(Config)
 @app.route("/", strict_slashes=False)
 def index() -> Any:
     """
-    return template of 1-index.html
+    return template of 3-index.html
     """
-    return render_template("1-index.html")
+    return render_template("3-index.html")
 
 
 @babel.localeselector
